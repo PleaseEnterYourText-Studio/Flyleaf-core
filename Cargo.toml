@@ -1,0 +1,18 @@
+[package]
+name = "flyleaf-core"
+version = "0.1.0"
+edition = "2021"
+description = "扉页 Flyleaf 核心库：Kindle「我的剪辑」解析、设备检测、统一数据模型与排版模板引擎（无界面逻辑）"
+
+[lib]
+name = "flyleaf_core"
+crate-type = ["rlib", "staticlib", "cdylib"]
+
+[features]
+default = []
+ffi = []
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
