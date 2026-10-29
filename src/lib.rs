@@ -6,6 +6,9 @@ pub mod layout;
 pub mod model;
 pub mod parse;
 
+#[cfg(feature = "ffi")]
+pub mod ffi;
+
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 pub use error::{Error, Result};
