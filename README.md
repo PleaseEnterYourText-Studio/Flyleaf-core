@@ -1,6 +1,19 @@
-# flyleaf-core
+# Flyleaf-core
 
-扉页 Flyleaf 的核心库（Rust）：解析 Kindle 的「我的剪辑」（`My Clippings.txt`），输出统一的结构化数据（可直接序列化为 JSON 文档）。本库只做数据处理，**不输出 Markdown、不做图片排版**——渲染由各壳（CLI / macOS / Web）基于这份数据各自实现。
+<div align="center">
+
+<kbd>[English](README.en.md)</kbd> <kbd>[简体中文](README.md)</kbd>
+
+</div>
+
+<div align="center">
+  <img src="https://moe-counter.ieshishinjin.workers.dev/github/PleaseEnterYourText-Studio/Flyleaf-core" title="Star!">
+</div>
+
+
+扉页 Flyleaf 的核心库
+
+解析 Kindle 的「我的剪辑」（`My Clippings.txt`）
 
 ## 快速开始
 
@@ -10,7 +23,7 @@ let clippings = flyleaf_core::parse_clippings(&data)?;
 let json = serde_json::to_string_pretty(&clippings)?;  // 输出：统一 JSON 文档
 ```
 
-设备自动检测（仅原生端）：
+设备自动检测：
 
 ```rust
 if let Ok(path) = flyleaf_core::device::find_kindle_clippings() {
@@ -23,23 +36,10 @@ if let Ok(path) = flyleaf_core::device::find_kindle_clippings() {
 
 ```bash
 cargo build                  # 核心库（rlib）
-cargo build --features ffi   # C ABI（macOS / WinUI 桥接用）
+cargo build --features ffi   # C ABI
 ```
-
-## 模块与接口位置
-
-| 路径 | 职责 |
-| --- | --- |
-| `src/model.rs` | 统一数据模型（输出契约）：`Clippings` / `Book` / `Item` / `ItemKind` / `Location` / `NoteAttachment` / `DeviceTime` |
-| `src/parse/clippings.rs` | My Clippings.txt 解析器：`parse_clippings` |
-| `src/device.rs` | 本地 Kindle 设备自动检测（仅原生端）：`detect_kindles` / `find_kindle_clippings` |
-| `src/ffi.rs` | C ABI 导出（`--features ffi`） |
-| `src/error.rs` | 统一错误类型与稳定错误码 |
-
 ## 文档
 
 - [docs/api.md](docs/api.md)：接口与数据模型一览
 
-## 许可证
-
-GPLv3，见 [LICENSE.txt](LICENSE.txt)。
+#### © 2026 PEYT-Studio, GPLv3 License
