@@ -38,7 +38,6 @@ cargo build --features ffi   # C ABI（macOS / WinUI 桥接用）
 
 ## 文档
 
-- [docs/integration.md](docs/integration.md)：如何接入核心库（Rust crate / C ABI / WASM）
 - [docs/api.md](docs/api.md)：接口与数据模型一览
 
 ## 许可证

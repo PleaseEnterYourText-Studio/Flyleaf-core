@@ -9,7 +9,16 @@
 | `find_kindle_clippings() -> Result<PathBuf>` | `src/device.rs` | 唯一设备时返回其 My Clippings.txt 路径 |
 | `scanned_locations() -> &'static str` | `src/device.rs` | 本平台扫描位置（用于提示信息） |
 
-C ABI 函数见 [integration.md](integration.md) 第 2 节。
+## C ABI（`--features ffi`，src/ffi.rs）
+
+| 函数 | 说明 |
+| --- | --- |
+| `flyleaf_core_version(void)` | 版本字符串，静态内存，无需释放 |
+| `flyleaf_abi_version(void)` | ABI 版本号，破坏性变更时递增 |
+| `flyleaf_parse_clippings(data, len)` | 解析 My Clippings.txt，返回 JSON 信封 |
+| `flyleaf_string_free(s)` | 释放本库返回的字符串 |
+
+成功 `{"ok":true,"data":{...}}`，失败 `{"ok":false,"error":{"code":"...","message":"..."}}`；库内分配，调用方用 `flyleaf_string_free` 释放。
 
 ## 输出与渲染边界
 
