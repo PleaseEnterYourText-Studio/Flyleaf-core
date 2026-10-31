@@ -7,7 +7,7 @@
   <a href="README.md"><kbd>简体中文</kbd></a>
 </p>
 
-<img src="..." title="Star!">
+<img src="https://moe-counter.ieshishinjin.workers.dev/github/PleaseEnterYourText-Studio/Flyleaf-core" title="Star!">
 
 <p>扉页 Flyleaf 的核心库</p>
 <p>解析 Kindle 的「我的剪辑」（<code>My Clippings.txt</code>）</p>
