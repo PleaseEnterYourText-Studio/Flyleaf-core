@@ -1,6 +1,6 @@
 # 接入指南
 
-核心库是纯计算库：**不做文件读写、不含界面**。输入字节 → 统一数据模型 → 导出文本或布局结果；文件读写与展示由各壳负责。
+核心库是**数据层**：输入字节 → 统一数据模型 → 结构化输出（可直接序列化为 JSON 文档）。核心库不做 Markdown 渲染、不做图片排版——渲染由各壳（命令行 / macOS / Web）基于这份数据独立实现。
 
 ## 1. Rust crate 依赖（CLI 的方式）
 
@@ -14,15 +14,14 @@ flyleaf-core = { path = "core" }  # 本地目录或 git 子模块检出的源码
 调用：
 
 ```rust
-use flyleaf_core::{export::render_book_markdown, parse_clippings};
+use flyleaf_core::parse_clippings;
 
 let data = std::fs::read("My Clippings.txt")?;
 let clippings = parse_clippings(&data)?;
-for book in &clippings.books {
-    let markdown = render_book_markdown(book);
-    std::fs::write(format!("{}.md", book.title), markdown)?;
-}
+let json = serde_json::to_string_pretty(&clippings)?;  // 统一 JSON 文档（输出契约）
 ```
+
+渲染说明：Markdown 由命令行仓库（`flyleaf-cli`）自行实现；图片排版规划中，也将由各壳自行实现。
 
 设备自动检测（仅原生端；`wasm32` 目标下该模块不编译）：
 
@@ -50,7 +49,7 @@ cargo build --release --features ffi
 | --- | --- |
 | `const char *flyleaf_core_version(void)` | 版本字符串，静态内存，无需释放 |
 | `uint32_t flyleaf_abi_version(void)` | ABI 版本号，破坏性变更时递增 |
-| `char *flyleaf_parse_clippings(const uint8_t *data, size_t len)` | 解析 My Clippings.txt，返回 JSON 信封 |
+| `char *flyleaf_parse_clippings(const uint8_t *data, size_t len)` | 解析 My Clippings.txt，返回 JSON 文档信封 |
 | `void flyleaf_string_free(char *s)` | 释放上面返回的字符串 |
 
 约定：
@@ -58,6 +57,7 @@ cargo build --release --features ffi
 - 复杂载荷一律走 JSON 字符串：成功 `{"ok":true,"data":{...}}`，失败 `{"ok":false,"error":{"code":"...","message":"..."}}`。
 - 所有权单向：库内分配，调用方用 `flyleaf_string_free` 释放，不要用 `free()`。
 - 错误码稳定：`unsupported_format` / `invalid_data` / `io` / `not_implemented` / `device` / `internal` / `panic`。
+- 核心库只返回数据文档，Markdown/图片的输出由壳自己完成。
 
 C 调用示例：
 
@@ -94,4 +94,4 @@ Swift：把库（`.a` 或 `.dylib`）加入工程，通过 C 互操作调用上�
 
 - 用 wasm-bindgen 导出与 C ABI 相同的 JSON 函数面；
 - `device` 模块不参与编译（浏览器没有文件系统）；
-- 文件选择由前端负责，把字节交给解析函数。
+- 文件选择由前端负责，解析后的 JSON 文档由前端自行渲染。
