@@ -1,19 +1,18 @@
-# Flyleaf-core
-
 <div align="center">
 
-<kbd>[English](README_en.md)</kbd> <kbd>[简体中文](README.md)</kbd>
+<h1>Flyleaf-core</h1>
+
+<p>
+  <a href="README_en.md"><kbd>English</kbd></a>
+  <a href="README.md"><kbd>简体中文</kbd></a>
+</p>
+
+<img src="..." title="Star!">
+
+<p>扉页 Flyleaf 的核心库</p>
+<p>解析 Kindle 的「我的剪辑」（<code>My Clippings.txt</code>）</p>
 
 </div>
-
-<div align="center">
-  <img src="https://moe-counter.ieshishinjin.workers.dev/github/PleaseEnterYourText-Studio/Flyleaf-core" title="Star!">
-</div>
-
-
-扉页 Flyleaf 的核心库
-
-解析 Kindle 的「我的剪辑」（`My Clippings.txt`）
 
 ## 快速开始
 
