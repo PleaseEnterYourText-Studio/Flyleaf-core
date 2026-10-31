@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<kbd>[English](README.en.md)</kbd> <kbd>[简体中文](README.md)</kbd>
+<kbd>[English](README_en.md)</kbd> <kbd>[简体中文](README.md)</kbd>
 
 </div>
 
